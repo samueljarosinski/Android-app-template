@@ -1,0 +1,15 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    config = files("$rootProject.projectDir/gradle/checks/detekt/config.yml")
+    buildUponDefaultConfig = true
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+dependencies {
+    detektPlugins 'io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0'
+}

@@ -1,0 +1,33 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '8.34'
+
+    maxWarnings = 0
+    maxErrors = 0
+}
+
+task checkstyle(type: Checkstyle) {
+    group = "Verification"
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BR.java'
+    exclude '**/BuildConfig.java'
+
+    classpath = files()
+    configFile = rootProject.file('gradle/checks//checkstyle/checkstyle.xml')
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    showViolations = true
+    ignoreFailures = false
+
+    outputs.upToDateWhen { false }
+    project.tasks.getByName('check').dependsOn it
+}
